@@ -3,6 +3,8 @@ const crypto =  require("./modules/algorithm.rsa");
 const devices = require("./config/device.address");
 const { linkit } = require("./config/device.key");
 function lightControl(id, state, callback){
+  state[1] = state[1].replace(/開/g, "on").replace(/關/g, "off");
+
   let device = devices.find((v)=>v.id==id&&v.device==="light");
   console.log(device);
   
