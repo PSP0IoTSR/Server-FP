@@ -2,8 +2,8 @@ const fs = require("fs");
 const prime = fs.readFileSync("prime.number.list", "utf8").split("\n");
 
 function generate(){
-  let P = ~~(Math.random()*30)+70,
-      Q = ~~(Math.random()*30)+70,
+  let P = ~~(Math.random()*30)+30,
+      Q = ~~(Math.random()*30)+30,
       E = ~~(Math.random()*(Math.min(P,Q)/2));
   let p = prime[P],
       q = prime[Q],

@@ -1,12 +1,12 @@
 module.exports = {
   android:{
-    key: 115855 ,
-    mod: 153773 ,
+    key: 22259 ,
+    mod: 44197 ,
   },
   linkit:{
     key: 137609 ,
     mod: 205039 ,
   }
 }
-//{ private: '115855', public: 103 , modulus: 153773 }
+//{ private: '59', public: 22259, modulus: 44197 }
 //{ private: '89', public: 137609 , modulus: 205039 }

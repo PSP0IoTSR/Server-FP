@@ -43,7 +43,15 @@ const server = net.createServer(function(socket) {
     //      console.log(error, message);
     //    });
     //})
-
+    socket.on("close", ()=>{
+      console.log("disconnect");
+    })
+    socket.on("error",(error)=>{
+      console.log("error", error);
+    });
+    socket.on("connection", ()=>{
+      console.log("new client");
+    })
   })
 });
 

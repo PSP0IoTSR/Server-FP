@@ -10,9 +10,9 @@ module.exports = [
     func:"light",
   },
   {
-    keyword:/(\S+)\s?外帶/, 
-    response:"好的!請問除了 $1 還需要加點嗎",
-    func:3,
+    keyword:/開(\S+)/, 
+    response:"好的, 正在為您$1燈",
+    func:"light",
   },
   {
     keyword:/來([\S|\d]{0,})份\s?(\S+)/, 

@@ -24,18 +24,6 @@ function lightControl(id, state, callback){
       return callback({error:"something got wrong"});
     return callback({message:"success"});
   })
-  /*let object = crypto("light", linkit.key, linkit.mod);
-  console.log(linkit);
-  state = crypto(state, linkit.key, linkit.mod);
-  let server = `http://${device.IP}:${device.PORT}/?turn=${target}&action=${state}`;
-  console.log(target, state, server);
-  
-  request(server, (e,r,d)=>{
-    if(e||!d)
-      return callback({error:e});
-    return callback({message:"success"});
-  });
-  */
 }
 
 exports.light = lightControl;
