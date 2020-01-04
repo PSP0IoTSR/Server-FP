@@ -35,6 +35,7 @@ client.connect(3000, '127.0.0.1', function() {
 
 client.on('data', function(data) {
   console.log("");
+  console.log(process.argv[3].split("").map(v=>v.charCodeAt()).join(", "));
   console.log("Result:");
   console.log(data.toString());
 	//console.log('Received: ' + data);

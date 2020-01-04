@@ -6,6 +6,7 @@ function lightControl(id, state, callback){
   let device = devices.find((v)=>v.id==id&&v.device==="light");
   console.log(device);
   
+  console.log(state);
   console.log(linkit);
   
   let object = [], status = [];
@@ -13,12 +14,15 @@ function lightControl(id, state, callback){
   for(let k of ("light".split(""))){
     object.push(crypto(k.charCodeAt(), linkit.key, linkit.mod));
   }
-  for(let k of state){
+  for(let k of state[1]){
     status.push(crypto(k.charCodeAt(), linkit.key, linkit.mod));
   }
   server = `${server}/?turn=${object.join(",")}&action=${status.join(",")}`;
   console.log(server);
-
+  //console.log( 
+  //  object.map(v=> String.fromCharCode(crypto(v, 7, linkit.mod)) ).join(""),
+  //  status.map(v=> String.fromCharCode(crypto(v, 7, linkit.mod)) ).join("") 
+  //);
   request(server, (e,r,d)=>{
     if(e||!d)
       return callback({error:"something got wrong"});

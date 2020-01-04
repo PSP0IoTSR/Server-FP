@@ -10,7 +10,7 @@ module.exports = [
     func:"light",
   },
   {
-    keyword:/開(\S+)/, 
+    keyword:/\S{0,}(\S)燈/, 
     response:"好的, 正在為您$1燈",
     func:"light",
   },

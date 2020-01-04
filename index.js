@@ -7,12 +7,15 @@ const {android, linkit} = require("./config/device.key");
 const color = require("./modules/terminal-color");
 const funcs = require("./functions");
 
-color.println(process.argv[2]==1?"decrypte the message":"read cpihertext only", {fore:"red"});
+const security = !process.argv[2];
+
+color.println(security?"decrypte the message":"read cpihertext only", {fore:"red"});
 const server = net.createServer(function(socket) {
 	//socket.write("歡迎光臨\r\n");
+  socket.id = "client-"+Number(new Date()).toString(16);
   socket.on('data', function (data) {
     console.log(data.toString());
-    if(process.argv[2]==1)
+    if(security)
       data = data.toString().split(",").map(
         v=>String.fromCharCode(crypto(v, android.key, android.mod))
       ).join("");
@@ -44,10 +47,10 @@ const server = net.createServer(function(socket) {
     //    });
     //})
     socket.on("close", ()=>{
-      console.log("disconnect");
+      console.log(socket.id, "disconnect");
     })
     socket.on("error",(error)=>{
-      console.log("error", error);
+      //console.log("error", error);
     });
     socket.on("connection", ()=>{
       console.log("new client");
