@@ -1,13 +1,13 @@
 module.exports = [
   {
-    keyword:/我要一份\s?(\S+)/, 
-    response:"好的, 正在為您準備 $1",
-    func:1,
+    keyword:/turn\s?(\S+)\s?the light/, 
+    response:"ok, i turn it $1",
+    func:"light",
   },
   {
-    keyword:/(\S+)\s?一個外帶/, 
-    response:"請稍後, 我們盡快為準備您的 $1",
-    func:2,
+    keyword:/turn (\S+)\s?/, 
+    response:"please wait, i turn $1 the light",
+    func:"light",
   },
   {
     keyword:/(\S+)\s?外帶/, 

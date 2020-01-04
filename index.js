@@ -1,21 +1,53 @@
 const {_PORT, _HOST} = require("./config/server");
 const keyword = require("./modules/keyword");
-const net = require('net');
-const color = require("./modules/terminal-color");
 
+const net = require('net');
+const crypto = require("./modules/algorithm.rsa");
+const {android, linkit} = require("./config/device.key");
+const color = require("./modules/terminal-color");
+const funcs = require("./functions");
+
+color.println(process.argv[2]==1?"decrypte the message":"read cpihertext only", {fore:"red"});
 const server = net.createServer(function(socket) {
 	//socket.write("歡迎光臨\r\n");
   socket.on('data', function (data) {
-    let {response, func} = keyword.analysis(data.toString());
+    console.log(data.toString());
+    if(process.argv[2]==1)
+      data = data.toString().split(",").map(
+        v=>String.fromCharCode(crypto(v, android.key, android.mod))
+      ).join("");
+    else
+      data = data.toString();
+    console.log(data);
+    let {response, func, match} = keyword.analysis(data);
+    if(funcs[func]){
+      funcs[func](1, match, ({error, message})=>{
+        socket.write(`${error||response}\r\n`, ()=>{
+        console.log("request:", data);
+        console.log("response:", error||response);
+        console.log("function:", func);
+        });
+      });
+    }else{
+      socket.write(`${response}\r\n`, ()=>{
+        console.log("request:", data);
+        console.log("response:", response);
+        console.log("function:", func);
+      });
+    }
     // write event: 傳輸資料的事件
-    socket.write(`${response}\r\n`, function () {
-      console.log(`request: ${data}\nresponse:${response}, function: ${func}`);
-    })
+    //socket.write(`${response}\r\n`, function () {
+    //  console.log(`request: ${data}\nresponse:${response}, function: ${func}`);
+    //  if(func!=-1)
+    //    funcs[func](1, match[1], ({error, message})=>{
+    //      console.log(error, message);
+    //    });
+    //})
 
   })
 });
 
-keyword.loaddata(__dirname, "modules/keyword.list.js", ()=>{
+keyword.loaddata(__dirname, "config/keyword.list.js", ()=>{
   color.println("keyword list loading success", {fore:"blue"});
 });
 

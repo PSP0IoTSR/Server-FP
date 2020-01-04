@@ -13,12 +13,13 @@ function main(message){
       let response = keywords[i].response;
       if(typeof response=="object"){
         let response = replaceMulti(result.filter(v=>v!=''&&v!=message), keywords[i].response);
-        return {response, func};
+        return {response, func, match:result};
       }else{
         
         return {
           response:response.replace(/\$1/g, result[1]),
-          func
+          func,
+          match:result
         };
       }
     }
